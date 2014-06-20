@@ -19,11 +19,15 @@ namespace Diceware
         {
 
             wordList = ReadWordList(@".\beale.wordlist.asc.txt");
+            Console.WriteLine("Press enter for a new passphrase...");
+            do
+            {
+                GetPassPhrase(wordCount);
+            } while (Console.ReadLine() != null);
             
-            GetPassPhrase(wordCount);    
 
             rngCsp.Dispose();
-            Console.ReadLine();
+            
         }
 
         private static void GetPassPhrase(int noOfWords)
