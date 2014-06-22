@@ -13,7 +13,6 @@ namespace Diceware
         private const int wordCount = 8;
         static void Main(string[] args)
         {
-
             wordList = ReadWordList(@".\beale.wordlist.asc.txt");
             Console.WriteLine("Press enter for a new passphrase...");
             do
@@ -28,13 +27,13 @@ namespace Diceware
         {
             for (var i = 0; i < noOfWords; i++)
             {
-                string wordArr = String.Empty;
+                string wordId = String.Empty;
                 for (var j = 0; j < 5; j++)
                 {
                     var roll = RollDice();
-                    wordArr += roll;
+                    wordId += roll;
                 }
-                PrintFoundWord(wordArr);
+                PrintFoundWord(wordId);
             }
             Console.WriteLine();
         }
