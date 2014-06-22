@@ -9,7 +9,7 @@ namespace Diceware
     class Program
     {
         private static readonly RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
-        private static Dictionary<int, string> wordList = new Dictionary<int, string>();
+        private static Dictionary<string, string> wordList = new Dictionary<string, string>();
         private const int wordCount = 8;
         static void Main(string[] args)
         {
@@ -20,10 +20,8 @@ namespace Diceware
             {
                 GetPassPhrase(wordCount);
             } while (Console.ReadLine() != null);
-            
-
+ 
             rngCsp.Dispose();
-            
         }
 
         private static void GetPassPhrase(int noOfWords)
@@ -43,27 +41,23 @@ namespace Diceware
 
         private static void PrintFoundWord(string wordArr)
         {
-            int rowNo;
-            Int32.TryParse(wordArr, out rowNo);
-            Console.Write("{0} ", wordList[rowNo]);
+            Console.Write("{0} ", wordList[wordArr]);
         }
 
-        static Dictionary<int, string> ReadWordList(string filename)
+        static Dictionary<string, string> ReadWordList(string filename)
         {
             if(String.IsNullOrEmpty(filename))
                 throw new ArgumentException("filename");
 
             var rdr = new StreamReader(filename);
-            var wordlist = new Dictionary<int, string>();
+            var wordlist = new Dictionary<string, string>();
             string line;
             while ((line = rdr.ReadLine()) != null)
             {
                 if (Regex.IsMatch(line, @"^\d"))
                 {
                     var split = line.Split('\t');
-                    int lineId;
-                    Int32.TryParse(split[0], out lineId);
-                    wordlist.Add(lineId, split[1]);
+                    wordlist.Add(split[0], split[1]);
                 }
             }
             return wordlist;
